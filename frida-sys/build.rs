@@ -30,10 +30,13 @@ fn main() {
         println!("cargo:rustc-link-lib=pthread");
         println!("cargo:rustc-link-lib=resolv");
     }
-
+    if target_os == "android" {
+        println!("cargo:rustc-link-lib=pthread");
+        // Do NOT link resolv on Android!
+    }
     if target_vendor == "apple" {
         println!("cargo:rustc-link-lib=bsm");
-        println!("cargo:rustc-link-lib=resolv");
+        println!("cargo:rustc-link-lib=resolv2");
         println!("cargo:rustc-link-lib=pthread");
         if target_os == "macos" {
             println!("cargo:rustc-link-lib=framework=AppKit");
